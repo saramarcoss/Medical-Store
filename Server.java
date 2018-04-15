@@ -12,11 +12,22 @@ class Server extends _medintfImplBase{
 	public Server(){
 		total=0;
 		medicine_list=new HashMap<String,Integer>();
-		prices=new int[3];
-		medicine_list.put("ABC",10);
-		medicine_list.put("PQR",10);
-		medicine_list.put("AZX",10);
-		prices[0]=100; 	prices[1]=200; 	prices[2]=300;
+		prices=new int[10];
+		medicine_list.put("Paracetamol",15);
+		medicine_list.put("Lyrica",20);
+		medicine_list.put("Ibuprofen",20);
+		medicine_list.put("Codiene",20);
+		medicine_list.put("Cymbalta",20);
+		medicine_list.put("Ativan",20);
+		medicine_list.put("Losartan",20);
+		medicine_list.put("Actidone",20);
+		medicine_list.put("Lexapro",20);
+		medicine_list.put("Lyrica",20);
+		prices[0]=90; 	prices[1]=150; 	prices[2]=70;
+		prices[3]=120; 	prices[4]=24; 	prices[5]=98;
+		prices[6]=140; 	prices[7]=274; 	prices[8]=210;
+		prices[9]=50;
+
 	}
 
   // checking for availabilty for medicines

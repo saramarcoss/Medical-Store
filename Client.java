@@ -9,7 +9,7 @@ class Client{
 			int i;
 			String j;
 			Scanner sc=new Scanner(System.in);
-			String s;
+			String s,b,a;
 			ORB orb=ORB.init(args,null);
 			org.omg.CORBA.Object objRef =
 			orb.resolve_initial_references("NameService");
@@ -18,9 +18,12 @@ class Client{
 			NameComponent path[] = {nc} ;
 			medintf lbref=medintfHelper.narrow( ncRef.resolve(path) );
 			do{
-				System.out.println("1.Check medicines");
-				System.out.println("2.Proceed to Payment");
-				System.out.println("3. Exit");
+				int p=0;
+				System.out.println( ++p +".Check medicines");
+				if(lbref.total_price() > 0){
+							System.out.println( ++p +".Proceed to Payment");
+				}
+				System.out.println(++p +".Exit");
 				System.out.print("Enter choice: ");
 				i=sc.nextInt();
 				switch(i){
@@ -28,8 +31,8 @@ class Client{
 					j=sc.next();
 					s=lbref.check_medicine(j);
 					System.out.println(s);
-					System.out.println("If you want to confirm type 'yes' else 'no'");
-					String a=sc.next();
+					System.out.println("If you want to 	confirm type 'yes' else 'no'");
+					b=sc.next();		a=b.toLowerCase();
 					if(a.equals("yes")){
 						 System.out.print("Enter number of quantities: ");
 						 int y=sc.nextInt();
@@ -44,7 +47,7 @@ class Client{
 					case 2:int pay=lbref.total_price();
 					System.out.println("Total amount to be paid: "+pay);
 					System.out.println("If you want to pay type 'yes' else 'no' ");
-					a=sc.next();
+						b=sc.next();		a=b.toLowerCase();
 					if(a.equals("yes")){
 						 s=lbref.pay_bill();
 						 System.out.println(s);
@@ -52,13 +55,16 @@ class Client{
 					break;
 
 					default:
-					 System.out.println("Your cart amount: "+lbref.total_price());
-					 System.out.print("Do you want to pay? ");
-					 a=sc.next();
-					 if(a.equals("yes")){
-								 s=lbref.pay_bill();
-								 System.out.println(s);
-					 }	   
+					if(lbref.total_price() > 0){
+						System.out.println("Your cart amount: "+lbref.total_price());
+ 					 System.out.print("Do you want to pay? ");
+ 					 b=sc.next();		a=b.toLowerCase();
+ 					 if(a.equals("yes")){
+ 								 s=lbref.pay_bill();
+ 								 System.out.println(s);
+ 					 }
+					}
+
 					break;
 				}
 			}while(i!=3);
