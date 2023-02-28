@@ -6,7 +6,11 @@ import MedicalStore.*;
 class Server extends _medintfImplBase{
 
 	static Map<String,Integer> medicine_list;
+    //cesta
+    static Map<String,Integer> cesta=new HashMap<String,Integer>();
 	static int[] prices;
+    //forma farmaceutica de los medicamentos
+    static String[] form=new String[10];
 	static int total;
 	static int store;
 	public Server(){
@@ -27,6 +31,11 @@ class Server extends _medintfImplBase{
 		prices[3]=120; 	prices[4]=24; 	prices[5]=98;
 		prices[6]=140; 	prices[7]=274; 	prices[8]=210;
 		prices[9]=50;
+        form[0]="Capsules"; 	form[1]="Syrup"; 	form[2]="Tablet";
+        form[3]="Capsules"; 	form[4]="Tablet"; 	form[5]="Tablet";
+        form[6]="Tablet";    	form[7]="Syrup"; 	form[8]="Capsules";
+        form[9]="Tablet";
+
 
 	}
 
@@ -59,12 +68,12 @@ class Server extends _medintfImplBase{
 		if(q>=quantity){
 			total+= prices[store] * quantity;
 			medicine_list.put( med_id, medicine_list.get(med_id) - quantity );
+            cesta.put(med_id,quantity);
 			System.out.println("Medicine "+med_id+" ordered with quantities "+quantity);
-			s= "Medicine added to cart";
+			s= "Medicine "+med_id+" with " + quantity+ " added to cart";
 		}
 	  return s;
 	}
-
   //return total prices
   public int total_price(){
 		return total;
@@ -75,6 +84,31 @@ class Server extends _medintfImplBase{
 		total=0;
 		return "Payment successful!!";
 	}
+    //return form of medicine
+    public String form_medicine(String med_id){
+        String s="";
+        int i=0;
+        for(String ik: medicine_list.keySet() ){
+            if( ik.equals(med_id) )
+            {
+                s="Form of medicine: "+ form[i];
+                break;
+            }
+            i++;
+        }
+        return s;
+    }
+
+    //return medicines in cart
+    public String ver_cesta(){
+        String s="";
+        for(String ik: cesta.keySet() ){
+            s+="Medicine: "+ ik + " Quantity: "+cesta.get(ik)+"\n";
+        }
+        return s;
+    
+    }
+
 
 	public static void main(String[] args){
 		try{
